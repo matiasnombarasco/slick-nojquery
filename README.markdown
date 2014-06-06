@@ -1,6 +1,6 @@
 slick
 -------
-
+Fork with out jquery define for bower compatibility with Jqurey already included
 [1]: <https://github.com/kenwheeler/slick>
 
 _the last carousel you'll ever need_
