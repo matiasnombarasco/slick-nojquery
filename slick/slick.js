@@ -16,17 +16,7 @@
  */
 
 /* global window, document, define, jQuery, setInterval, clearInterval */
-
-(function(factory) {
-    'use strict';
-    if (typeof define === 'function' && define.amd) {
-       //MN: beta - removing jquery call
-       // define(['jquery'], factory);
-    } else {
-        factory(jQuery);
-    }
-
-}(function($) {
+(function($) {
     'use strict';
     var Slick = window.Slick || {};
 
@@ -432,7 +422,7 @@
             _.$list.prop('tabIndex', 0);
         }
 
-        _.setSlideClasses(typeof this.currentSlide === 'number' ? this.currentSlide : 0);
+        _.setSlideClasses(0);
 
         if (_.options.draggable === true) {
             _.$list.addClass('draggable');
@@ -758,7 +748,7 @@
         }
 
         if(_.options.accessibility === true) {
-            _.$list.on('keydown.slick', _.keyHandler); 
+            _.$list.on('keydown.slick', _.keyHandler);
         }
 
         $(window).on('orientationchange.slick.slick-' + _.instanceUid, function() {
@@ -778,7 +768,6 @@
         });
 
         $(window).on('load.slick.slick-' + _.instanceUid, _.setPosition);
-        $(document).on('ready.slick.slick-' + _.instanceUid, _.setPosition);
 
     };
 
@@ -832,7 +821,7 @@
         var _ = this,
             loadRange, cloneRange, rangeStart, rangeEnd;
 
-	    if (_.options.centerMode === true || _.options.fade === true ) {
+        if (_.options.centerMode === true) {
             rangeStart = _.options.slidesToShow + _.currentSlide - 1;
             rangeEnd = rangeStart + _.options.slidesToShow + 2;
         } else {
@@ -924,14 +913,12 @@
 
     Slick.prototype.refresh = function() {
 
-        var _ = this,
-            currentSlide = _.currentSlide;
+        var _ = this;
 
         _.destroy();
 
         $.extend(_, _.initials);
 
-        _.currentSlide = currentSlide;
         _.init();
 
     };
@@ -1187,8 +1174,6 @@
 
             if (index > 0 && index < (_.slideCount - _.options.slidesToShow)) {
                 _.$slides.slice(index, index + _.options.slidesToShow).addClass('slick-active');
-            } else if ( allSlides.length <= _.options.slidesToShow ) {
-                allSlides.addClass('slick-active');
             } else {
                 indexOffset = _.options.infinite === true ? _.options.slidesToShow + index : index;
                 allSlides.slice(indexOffset, indexOffset + _.options.slidesToShow).addClass('slick-active');
@@ -1403,10 +1388,10 @@
 
         var _ = this;
 
-        if ((_.options.swipe === false) || ('ontouchend' in document && _.options.swipe === false)) {
-           return undefined;
-        } else if ((_.options.draggable === false) || (_.options.draggable === false && !event.originalEvent.touches)) {
-           return undefined;
+        if ('ontouchend' in document && _.options.swipe === false) {
+            return false;
+        } else if (_.options.draggable === false && !event.originalEvent.touches) {
+            return true;
         }
 
         _.touchObject.fingerCount = event.originalEvent && event.originalEvent.touches !== undefined ?
@@ -1700,5 +1685,4 @@
 
         });
     };
-
-}));
+})($);
