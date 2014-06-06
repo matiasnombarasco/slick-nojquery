@@ -2,7 +2,7 @@
     "name": "slick-carousel-nojquery",
     "main": ["slick/slick.min.js", "slick/slick.css"],
     "version": "1.3.6",
-    "homepage": "https://github.com/kenwheeler/slick",
+    "homepage": "https://github.com/matiasnombarasco/slick-nojquery",
     "authors": [
         "Ken Wheeler <ken_wheeler@me.com>"
     ],
