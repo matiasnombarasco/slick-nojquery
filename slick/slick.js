@@ -20,7 +20,8 @@
 (function(factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
+       //MN: beta - removing jquery call
+       // define(['jquery'], factory);
     } else {
         factory(jQuery);
     }
